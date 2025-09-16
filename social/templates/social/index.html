@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Testovaya soc</title>
+    </head>
+
+<body>
+    {% if user.is_authenticated %}
+        Привет, {{ user.username }}!
+        <a href="{% url 'logout' %}">Выйти</a>
+    {% else %}
+        <a href="{% url 'login' %}">В0йти</a>
+        <a href="{% url 'signup' %}">Регистрация</a>
+    {% endif %}
+    </p>
+    <hr>
+    <h1>Лента постов</h1>
+
+    {% if user.is_authenticated %}
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Опубликовать</button>
+        </form>
+        <hr>
+    {% else %}
+        <p>Чтобы опубликовать посты, войдите в систему.</p>
+    {% endif %}
+
+    {% for post in posts %}
+        <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+            <p><b>{{ post.autor.username }}</b> - {{ post.created_at }}</p>
+            <p>{{ post.content }}</p>
+            {% if post.image %}
+                <img src="{{ post.image.url }}" width="200">
+            {% endif %}
+
+        </div>
+    {% empty %}
+        <p>Пока нет постов</p>
+    {% endfor %}
+</body>
+</html>
