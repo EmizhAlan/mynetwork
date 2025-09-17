@@ -1,0 +1,11 @@
+<h2>Мой профиль</h2>
+{% if user.avatar %}
+    <img src="{{ user.avatar.url }}" width="150">
+{% endif %}
+<p><storng>Логин:</strong> {{ user.username }}</p>
+<p><storng>Email:</strong> {{ user.email }}</p>
+<p><storng>О себе:</strong> {{ user.bio }}</p>
+
+<form action="{% url 'index' %}" method="get">
+    <button type="submit" class="btn btn-secondary">На главную</button>
+</form>
