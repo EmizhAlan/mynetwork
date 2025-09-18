@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container profile-user mt-4">
+    <h2>Профиль пользователя {{ profile_user.username }}</h2>
+    {% if profile_user.avatar %}
+        <img src="{{ profile_user.avatar.url }}" class="profile-avatar" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+    {% endif %}
+    <p><strong>Email:</strong> {{ profile_user.email }}</p>
+    <p><strong>О себе:</strong> {{ profile_user.bio }}</p>
+
+    <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>
+</div>
+{% endblock %}

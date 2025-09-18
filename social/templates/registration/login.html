@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+{% extends "base.html" %}
+{% block content %}
 <html>
     <head>
         <title>Вход</title>
@@ -13,3 +15,4 @@
         <p>Нет аккаунта? <a href="{% url 'signup' %}">Зарегестрироваться</a></p>
     </body>
 </html>
+{% endblock %}

@@ -1,8 +1,8 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post
 from .forms import PostForm, CustomUserCreationForm, UserUpdateForm
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import login
+from django.contrib.auth import login, get_user_model
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.
@@ -46,3 +46,9 @@ def edit_profile(request):
 @login_required
 def profile(request):
     return render(request, "social/profile.html", {"user": request.user})
+
+User = get_user_model()
+
+def user_profile(request, username):
+    profile_user = get_object_or_404(User, username=username)
+    return render(request, "social/user_profile.html", {"profile_user": profile_user})

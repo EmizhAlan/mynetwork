@@ -1,11 +1,24 @@
-<h2>Мой профиль</h2>
-{% if user.avatar %}
-    <img src="{{ user.avatar.url }}" width="150">
-{% endif %}
-<p><storng>Логин:</strong> {{ user.username }}</p>
-<p><storng>Email:</strong> {{ user.email }}</p>
-<p><storng>О себе:</strong> {{ user.bio }}</p>
+{% extends "base.html" %}
 
-<form action="{% url 'index' %}" method="get">
-    <button type="submit" class="btn btn-secondary">На главную</button>
-</form>
+{% block title %}Мой профиль{% endblock %}
+
+{% block content %}
+<div class="profile-card">
+    <h2 class="mb-3">Мой профиль</h2>
+
+    {% if user.avatar %}
+        <img src="{{ user.avatar.url }}" alt="Аватар" class="profile-avatar" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+    {% else %}
+        <img src="https://via.placeholder.com/150" class="profile-avatar">
+    {% endif %}
+
+    <p><strong>Логин:</strong> {{ user.username }}</p>
+    <p><strong>Email:</strong> {{ user.email }}</p>
+    <p><strong>О себе:</strong> {{ user.bio }}</p>
+
+    <div class="mt-3">
+        <a href="{% url 'edit_profile' %}" class="btn btn-warning">Редактировать профиль</a>
+        <a href="{% url 'index' %}" class="btn btn-secondary">На главную</a>
+    </div>
+</div>
+{% endblock %}
