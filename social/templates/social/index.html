@@ -32,13 +32,13 @@
             {% endif %}
             <div class="post-meta">
                 <strong>{{ post.autor.username }}</strong>
-                <small class="text-muted ms-2">{{ post.created_at|date:"d M Y H:i" }}</small>
+                <small class="text-muted ms-2 post-date">{{ post.created_at|date:"d M Y H:i" }}</small>
             </div>
         </div>
         <div class="card-body">
             <p>{{ post.content }}</p>
             {% if post.image %}
-                <img src="{{ post.image.url }}" class="img-fluid mt-2" alt="Post image">
+                <img src="{{ post.image.url }}" class="img-fluid mt-2" alt="Post image" style="width:200px; height:200px;">
             {% endif %}
         </div>
     </div>
