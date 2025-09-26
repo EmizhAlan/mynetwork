@@ -41,6 +41,16 @@
                 <img src="{{ post.image.url }}" class="img-fluid mt-2" alt="Post image" style="width:200px; height:200px;">
             {% endif %}
         </div>
+        <div class="card-footer d-flex align-items-center">
+            <button class="btn btn-outline-danger btn-sm like-btn me-2" data-id="{{ post.id}}">
+                {% if post.liked_by_user %}
+                    ❤️
+                {% else %}
+                    🤍
+                {% endif %}
+            </button>
+            <span id="likes-{{ post.id }}">{{ post.likes.count }}</span> лайков
+        </div>
     </div>
     {% empty %}
         <p class="text-muted">Пока нет постов</p>

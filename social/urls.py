@@ -9,4 +9,5 @@ urlpatterns = [
     path("profile/edit/", views.edit_profile, name="edit_profile"),
     path("logout/", auth_views.LogoutView.as_view(template_name="logout.html"), name='logout'),
     path("user/<str:username>/", views.user_profile, name="user_profile"),
+    path('post/<int:post_id>/like/', views.toggle_like, name='toggle_like'),
 ]

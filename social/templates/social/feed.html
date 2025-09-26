@@ -1,0 +1,28 @@
+{% for post in posts %}
+<div>
+    <strong>{{ post.autor.username }}</strong>: {{ post.content }}
+    {% if post.image %}<img src="{{ post.image.url }}" width="200">{% endif %}
+    <p>Лайки: <span id="likes-{{ post.id }}">{{ post.likes.count }}</span></p>
+    <button class="like-btn" data-id="{{ post.id }}">
+        {% if user in post.likes.all.values_list('user', flat=True) %}
+            ❤️
+        {% else %}
+            🤍
+        {% endif %}
+    </button>
+</div>
+{% endfor %}
+
+<script>
+document.querySelectorAll('.like-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const postId = btn.dataset.id;
+        fetch(`/post/${postId}/like/`, {method: 'POST', headers: {'X-CSRFToken': '{{ csrf_token }}'}})
+        .then(res => res.json())
+        .then(data => {
+            document.getElementById(`likes-${postId}`).innerText = data.likes_count;
+            btn.innerText = data.liked ? '❤️' : '🤍';
+        });
+    });
+});
+</script>
