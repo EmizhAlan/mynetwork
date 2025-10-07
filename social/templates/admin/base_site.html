@@ -1,0 +1,30 @@
+{% extends "admin/base.html" %}
+{% load static %}
+
+{% block title %}Админка TS{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <!-- Красный favicon для админки -->
+    <link rel="icon" href="{% static 'social/images/logotipishn.png' %}" type="image/x-icon">
+
+    <!-- Стили для красной шапки -->
+    <style>
+        #header {
+            background-color: #c62828 !important;  /* Красная шапка */
+        }
+        #header .branding {
+            color: white !important;
+        }
+        #header .branding img {
+            height: 40px;
+        }
+    </style>
+{% endblock %}
+
+{% block branding %}
+    <h1 class="branding">
+        <img src="{% static 'social/images/admin_logo.png' %}" alt="Admin TS">
+        TS Admin
+    </h1>
+{% endblock %}

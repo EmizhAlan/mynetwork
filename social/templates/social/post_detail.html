@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.autor.username }} — Пост{% endblock %}
+
+{% block content %}
+<div class="card mb-3">
+    <div class="card-header d-flex align-items-center">
+        {% if post.autor.avatar %}
+            <img src="{{ post.autor.avatar.url }}" alt="{{ post.autor.username }}" class="rounded-circle me-2" style="width:40px; height:40px;">
+        {% endif %}
+        <strong>{{ post.autor.username }}</strong>
+        <small class="text-muted ms-2">{{ post.created_at|date:"d M Y H:i" }}</small>
+    </div>
+
+    <div class="card-body">
+        <p>{{ post.content }}</p>
+        {% if post.image %}
+            <img src="{{ post.image.url }}" class="img-fluid mt-2" alt="Post image" style="width:200px; height:200px;">
+        {% endif %}
+    </div>
+
+    <div class="card-footer">
+        ❤️ {{ post.likes.count }} лайков
+    </div>
+</div>
+
+<h5>Комментарии ({{ comments.count }})</h5>
+<div class="comments">
+    {% for comment in comments %}
+        <p><b>{{ comment.user.username }}</b>: {{ comment.content }}</p>
+    {% empty %}
+        <p class="text-muted">Комментариев пока нет</p>
+    {% endfor %}
+</div>
+
+{% if user.is_authenticated %}
+<form method="post" class="mt-3">
+    {% csrf_token %}
+    <input type="text" name="content" placeholder="Напишите комментарий..." class="form-control mb-2">
+    <button type="submit" class="btn btn-primary btn-sm">Отправить</button>
+</form>
+{% endif %}
+
+<a href="{% url 'index' %}" class="btn btn-link mt-3">← Назад к ленте</a>
+{% endblock %}

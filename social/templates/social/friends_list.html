@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Мои друзья</h2>
+    <ul>
+        {% for friend in friends %}
+            <li>
+                <a href="{% url 'user_profile' friend.username %}">{{ friend.username }}</a>
+            </li>
+        {% empty %}
+            <p>У вас пока нет друзей.</p>
+        {% endfor %}
+    </ul>
+    <a href="{% url 'friend_requests' %}" class="btn btn-warning mt-2">
+    📨 Заявки в друзья
+    </a>
+    <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>
+</div>
+{% endblock %}

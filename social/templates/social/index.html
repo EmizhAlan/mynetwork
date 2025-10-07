@@ -51,6 +51,14 @@
             </button>
             <span id="likes-{{ post.id }}">{{ post.likes.count }}</span> лайков
         </div>
+
+        <div class="card-footer d-flex justify-content-between align-items-center">
+            
+            <a href="{% url 'post_detail' post.id %}" class="btn btn-link btn-sm">
+                💬 {{ post.comments.count }} комментариев
+            </a>
+        </div>
+
     </div>
     {% empty %}
         <p class="text-muted">Пока нет постов</p>

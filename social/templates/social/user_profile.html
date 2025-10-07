@@ -1,13 +1,61 @@
 {% extends "base.html" %}
+
 {% block content %}
 <div class="container profile-user mt-4">
     <h2>Профиль пользователя {{ profile_user.username }}</h2>
-    {% if profile_user.avatar %}
-        <img src="{{ profile_user.avatar.url }}" class="profile-avatar" style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
-    {% endif %}
-    <p><strong>Email:</strong> {{ profile_user.email }}</p>
-    <p><strong>О себе:</strong> {{ profile_user.bio }}</p>
 
+    {% if profile_user.avatar %}
+        <img src="{{ profile_user.avatar.url }}" class="profile-avatar mb-3" 
+             style="width:120px; height:120px; border-radius:50%; object-fit:cover;">
+    {% endif %}
+
+    <p><strong>Email:</strong> {{ profile_user.email }}</p>
+    <p><strong>О себе:</strong> {{ profile_user.bio|default:"(Нет описания)" }}</p>
+
+    <hr>
+
+    {% if profile_user != request.user %}
+        {% if friendship_status == "none" %}
+            <form action="{% url 'send_friend_request' profile_user.username %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-primary mt-2">
+                    Добавить в друзья
+                </button>
+            </form>
+
+        {% elif friendship_status == "pending" %}
+            <p class="text-muted mt-2">✅ Запрос отправлен (ожидает подтверждения)</p>
+
+        {% elif friendship_status == "incoming" %}
+            <form action="{% url 'accept_friend_request' friendship_id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-success mt-2">
+                    Принять заявку
+                </button>
+            </form>
+            <form action="{% url 'reject_friend_request' friendship_id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger mt-2">
+                    Отклонить
+                </button>
+            </form>
+
+        {% elif friendship_status == "friends" %}
+            <p class="text-success mt-2">👥 Вы друзья</p>
+            <form action="{% url 'remove_friend' profile_user.username %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-outline-danger mt-2">
+                    Удалить из друзей
+                </button>
+            </form>
+        {% endif %}
+    {% else %}
+        <a href="{% url 'friends_list' %}" class="btn btn-info mt-2">
+            👥 Мои друзья
+        </a>
+    {% endif %}
+
+    <br>
     <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>
 </div>
 {% endblock %}
