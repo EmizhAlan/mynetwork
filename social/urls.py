@@ -25,5 +25,5 @@ urlpatterns = [
     path("friend/remove/<str:username>/", views.remove_friend, name="remove_friend"),
     
     # обработка логотипа для админки
-    path('favicon.ico', RedirectView.as_view(url='/static/social/images/logotipishn.png')),
+    path('favicon.ico', RedirectView.as_view(url='/static/social/images/logo.png')),
 ]

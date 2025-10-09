@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import Post, Like, Comment, Friendship, User
-from .forms import PostForm, CustomUserCreationForm, UserUpdateForm
+from .forms import PostForm, CustomUserCreationForm, UserUpdateForm, SignupForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth.decorators import login_required
@@ -37,14 +37,14 @@ def index(request):
 
 def signup(request):
     if request.method == "POST":
-        form = CustomUserCreationForm(request.POST, request.FILES)
+        form = SignupForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect("index")
+            form.save()
+            return redirect('login')
     else:
-        form = CustomUserCreationForm()
-    return render(request, "registration/signup.html", {"form": form})
+        form = SignupForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
 
 @login_required
 def edit_profile(request):

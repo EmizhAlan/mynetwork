@@ -4,8 +4,14 @@ from django.db import models
 # Create your models here.
 class User(AbstractUser):
     bio = models.TextField(blank=True, null=True, verbose_name="О себе")
-    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True, verbose_name="Аватар")
-    
+    avatar = models.ImageField(
+        upload_to="avatars/",
+        blank=True,
+        null=True,
+        default="avatars/test.png",  # обязательно в media/
+        verbose_name="Аватар"
+    )
+
     def __str__(self):
         return self.username
     

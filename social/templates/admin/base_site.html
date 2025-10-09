@@ -5,13 +5,12 @@
 
 {% block extrahead %}
     {{ block.super }}
-    <!-- Красный favicon для админки -->
-    <link rel="icon" href="{% static 'social/images/logotipishn.png' %}" type="image/x-icon">
+    <!-- Красный favicon -->
+    <link rel="icon" href="{% static 'social/images/logo.png' %}?v=999" type="image/x-icon">
 
-    <!-- Стили для красной шапки -->
     <style>
         #header {
-            background-color: #c62828 !important;  /* Красная шапка */
+            background-color: #c62828 !important;
         }
         #header .branding {
             color: white !important;
@@ -24,7 +23,7 @@
 
 {% block branding %}
     <h1 class="branding">
-        <img src="{% static 'social/images/admin_logo.png' %}" alt="Admin TS">
+        <img src="{% static 'social/images/logo.png' %}" alt="Admin TS">
         TS Admin
     </h1>
 {% endblock %}
