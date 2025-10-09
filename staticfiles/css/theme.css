@@ -1,0 +1,280 @@
+/* =======================================
+   Переменные темы
+======================================= */
+:root {
+    --bg-color: #ffffff;
+    --text-color: #111827;
+    --card-color: #f8f9fa;
+    --muted: #6b7280;
+    --accent: #0d6efd;
+}
+
+body.dark-theme {
+    --bg-color: #0f1720;
+    --text-color: #ffffff;
+    --card-color: #111317;
+    --muted: #d1d5db;
+    --accent: #60a5fa;
+}
+
+/* =======================================
+   Общие стили для всего тела
+======================================= */
+body {
+    background: var(--bg-color);
+    color: var(--text-color);
+    transition: background 0.45s cubic-bezier(.2,.8,.2,1), color 0.45s cubic-bezier(.2,.8,.2,1);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* =======================================
+   Карточки постов и профиля
+======================================= */
+.card, .post-card, .profile-card {
+    background: var(--card-color);
+    transition: background 0.45s, color 0.45s;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.post-card:hover {
+    transform: translateY(-3px);
+}
+
+/* =======================================
+   Аватары
+======================================= */
+.post-avatar {
+    width: 40px; 
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    border: 3px solid var(--accent);
+}
+
+/* =======================================
+   Контейнеры
+======================================= */
+.container-fluid.px-5, 
+.container.profile-user {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.container.profile-user {
+    max-width: 500px;
+    padding: 30px;
+    text-align: center;
+}
+
+/* =======================================
+   Заголовки и текст
+======================================= */
+h1, h2, h3, h4, h5, h6, p {
+    transition: color 0.3s;
+}
+
+body.dark-theme h1,
+body.dark-theme h2,
+body.dark-theme h3,
+body.dark-theme h4,
+body.dark-theme h5,
+body.dark-theme h6,
+body.dark-theme p {
+    color: var(--text-color) !important;
+}
+
+/* =======================================
+   Navbar
+======================================= */
+.navbar {
+    transition: background 0.3s, color 0.3s;
+}
+body.dark-theme .navbar {
+    background-color: #1f2937 !important;
+}
+body.dark-theme .navbar .nav-link,
+body.dark-theme .navbar-brand,
+body.dark-theme .navbar span {
+    color: #ffffff !important;
+}
+
+/* =======================================
+   Посты: автор и дата
+======================================= */
+.post-header,
+.post-meta,
+.post-username,
+.post-date {
+    color: #666;
+}
+
+body.dark-theme .post-card p b,
+body.dark-theme .post-meta,
+body.dark-theme .post-username,
+body.dark-theme .post-date {
+    color: #ffffff !important;
+}
+
+/* =======================================
+   Картинки постов
+======================================= */
+.post-card img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.15);
+}
+
+/* =======================================
+   Кнопки
+======================================= */
+button, .btn, .profile-card button, .container.profile-user .btn {
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    transition: background 0.3s, color 0.3s;
+}
+
+.profile-card button,
+.container.profile-user .btn {
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+}
+
+.profile-card button:hover,
+.container.profile-user .btn:hover {
+    background-color: #2563eb;
+}
+
+/* =======================================
+   Формы регистрации и входа
+======================================= */
+form, form input, form textarea, form select, form label, form button {
+    transition: background 0.3s, color 0.3s, border 0.3s;
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+}
+
+form input, form textarea, form select {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid #ced4da;
+    width: 100%;
+}
+
+form input::placeholder,
+form textarea::placeholder {
+    color: #6b7280;
+}
+
+body.dark-theme form input,
+body.dark-theme form textarea,
+body.dark-theme form select {
+    background-color: #1f2937 !important;
+    color: #ffffff !important;
+    border: 1px solid #374151 !important;
+}
+
+body.dark-theme .text-muted {
+    color: var(--muted) !important;
+}
+
+body.dark-theme form input::placeholder,
+body.dark-theme form textarea::placeholder {
+    color: #d1d5db !important;
+}
+
+/* =======================================
+   Списки правил пароля
+======================================= */
+#passwordRules li {
+    color: #6b7280;
+}
+
+body.dark-theme #passwordRules li {
+    color: #d1d5db !important;
+}
+
+#passwordRules h4,
+#passwordRules strong {
+    color: #111827;
+}
+
+body.dark-theme #passwordRules h4,
+body.dark-theme #passwordRules strong {
+    color: #ffffff !important;
+}
+
+/* =======================================
+   Темная тема для карточек профиля
+======================================= */
+body.dark-theme .profile-card,
+body.dark-theme .container.profile-user {
+    background-color: var(--card-color) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+body.dark-theme .profile-card h2,
+body.dark-theme .container.profile-user h2 {
+    color: var(--text-color) !important;
+}
+
+body.dark-theme .profile-card p,
+body.dark-theme .container.profile-user p {
+    color: var(--muted) !important;
+}
+
+/* =======================================
+   Кнопки и поля формы внутри профиля
+======================================= */
+.profile-card input,
+.profile-card textarea,
+.profile-card select,
+.container.profile-user input,
+.container.profile-user textarea,
+.container.profile-user select {
+    border-radius: 6px;
+    padding: 0.5rem 0.75rem;
+}
+
+body.dark-theme .profile-card input,
+body.dark-theme .profile-card textarea,
+body.dark-theme .profile-card select,
+body.dark-theme .container.profile-user input,
+body.dark-theme .container.profile-user textarea,
+body.dark-theme .container.profile-user select {
+    background-color: #1f2937;
+    color: #ffffff;
+    border: 1px solid #374151;
+}
+
+body.dark-theme .profile-card button,
+body.dark-theme .container.profile-user .btn {
+    background-color: var(--accent);
+    color: #ffffff;
+    border: none;
+}
+
+body.dark-theme .profile-card button:hover,
+body.dark-theme .container.profile-user .btn:hover {
+    background-color: #2563eb;
+}
+
+body.dark-theme .text-muted {
+    color: var(--muted) !important; /* светло-серый, хорошо видимый на тёмном фоне */
+}
+
+.text-danger {
+    white-space: pre-line; /* сохраняет \n как перенос строки */
+}
