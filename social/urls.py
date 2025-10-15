@@ -23,7 +23,14 @@ urlpatterns = [
     path("friend-request/<int:friendship_id>/accept/", views.accept_friend_request, name="accept_friend_request"),
     path("friend-request/<int:friendship_id>/reject/", views.reject_friend_request, name="reject_friend_request"),
     path("friend/remove/<str:username>/", views.remove_friend, name="remove_friend"),
+    path('friend_requests/cancel/<int:friendship_id>/', views.cancel_friend_request, name='cancel_friend_request'),
+
     
     # обработка логотипа для админки
     path('favicon.ico', RedirectView.as_view(url='/static/social/images/logo.png')),
+    
+    # работа чатов между пользователями
+    path('conversations/', views.conversations, name='conversations'),
+    path('chat/<str:username>/', views.chat, name='chat'),
+    path('messages/<str:username>/', views.chat_view, name='chat_view'),
 ]

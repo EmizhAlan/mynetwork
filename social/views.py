@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Post, Like, Comment, Friendship, User
-from .forms import PostForm, CustomUserCreationForm, UserUpdateForm, SignupForm
+from .models import Post, Like, Comment, Friendship, User, Message
+from .forms import PostForm, CustomUserCreationForm, UserUpdateForm, SignupForm, MessageForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login, get_user_model
 from django.contrib.auth.decorators import login_required
@@ -182,8 +182,24 @@ def reject_friend_request(request, friendship_id):
 
 @login_required
 def friend_requests(request):
+    # Входящие заявки
     incoming = Friendship.objects.filter(to_user=request.user, status='pending')
-    return render(request, 'social/friend_requests.html', {'requests': incoming})
+    
+    # Исходящие заявки
+    outgoing = Friendship.objects.filter(from_user=request.user, status='pending')
+    
+    return render(request, 'social/friend_requests.html', {
+        'incoming_requests': incoming,
+        'outgoing_requests': outgoing,
+    })
+    
+@login_required
+def cancel_friend_request(request, friendship_id):
+    friendship = get_object_or_404(Friendship, id=friendship_id, from_user=request.user, status='pending')
+    if request.method == "POST":
+        friendship.delete()
+        messages.info(request, "Запрос в друзья отменён.")
+    return redirect('friend_requests')
 
 @login_required
 def feed(request):
@@ -230,3 +246,62 @@ def remove_friend(request, username):
         friendship.delete()
         messages.success(request, f"{other.username} удалён(а) из друзей.")
     return redirect('user_profile', username=username)
+
+@login_required
+def conversations(request):
+    # Получаем всех пользователей, с которыми есть переписка
+    user_ids = Message.objects.filter(Q(sender=request.user) | Q(receiver=request.user))\
+                .values_list('sender', 'receiver')
+                
+    chat_user_ids = set()
+    for s_id, r_id in user_ids:
+        if s_id != request.user.id:
+            chat_user_ids.add(s_id)
+        if r_id != request.user.id:
+            chat_user_ids.add(r_id)
+            
+    users = User.objects.filter(id__in=chat_user_ids)
+    return render(request, 'social/conversations.html', {'users': users})
+
+@login_required
+def chat(request, username):
+    other_user = get_object_or_404(User, username=username)
+    messages = Message.objects.filter(
+        (Q(sender=request.user, receiver=other_user) | Q(sender=other_user, receiver=request.user))
+    ).order_by('created_at')
+    
+    if request.method == 'POST':
+        form = MessageForm(request.POST)
+        if form.is_valid():
+            message = form.save(commit=False)
+            message.sender = request.user
+            message.receiver = other_user
+            message.save()
+            return redirect('chat', username=username)
+    else:
+        form = MessageForm()
+        
+    return render(request, 'social/chat.html', {
+        'other_user' : other_user,
+        'messages': messages,
+        'form': form
+    })
+    
+@login_required
+def chat_view(request, username):
+    other_user = get_object_or_404(User, username=username)
+    messages = Message.objects.filter(
+        (Q(sender=request.user, receiver=other_user) |
+         Q(sender=other_user, receiver=request.user))
+    ).order_by('created_at')
+
+    if request.method == 'POST':
+        content = request.POST.get('content')
+        if content.strip():
+            Message.objects.create(sender=request.user, receiver=other_user, content=content)
+            return redirect('chat_view', username=username)
+
+    return render(request, 'social/chat.html', {
+        'other_user': other_user,
+        'messages': messages,
+    })

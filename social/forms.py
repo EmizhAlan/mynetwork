@@ -1,6 +1,6 @@
 import re
 from django import forms
-from .models import Post, User
+from .models import Post, User, Message
 from django.contrib.auth.forms import UserCreationForm
 from django.core.exceptions import ValidationError
 
@@ -78,3 +78,10 @@ class SignupForm(forms.ModelForm):
         if commit:
             user.save()
         return user
+    
+class MessageForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={'rows':2, 'placeholder':'Введите сообщение...'}), label='')
+    
+    class Meta:
+        model = Message
+        fields = ['content']

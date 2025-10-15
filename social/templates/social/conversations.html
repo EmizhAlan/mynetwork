@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Ваши чаты</h2>
+<ul>
+    {% for user in users %}
+        <li><a href="{% url 'chat' user.username %}">{{ user.username }}</a></li>
+    {% empty %}
+        <li>Нет переписок</li>
+    {% endfor %}
+</ul>
+{% endblock %}

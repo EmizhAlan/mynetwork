@@ -48,12 +48,16 @@
                     Удалить из друзей
                 </button>
             </form>
+            <a href="{% url 'chat_view' username=profile_user.username %}" class="btn btn-success mt-2">
+                💬 Написать сообщение
+            </a>
         {% endif %}
     {% else %}
         <a href="{% url 'friends_list' %}" class="btn btn-info mt-2">
             👥 Мои друзья
         </a>
     {% endif %}
+    
 
     <br>
     <a href="{% url 'index' %}" class="btn btn-secondary mt-3">На главную</a>

@@ -1,7 +1,10 @@
-from django.contrib.auth.models import AbstractUser, User
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+from django.contrib.auth import get_user_model
+
 
 # Create your models here.
+
 class User(AbstractUser):
     bio = models.TextField(blank=True, null=True, verbose_name="О себе")
     avatar = models.ImageField(
@@ -14,6 +17,19 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.username
+
+class Message(models.Model):
+    sender = models.ForeignKey(User, related_name='sent_messages', on_delete=models.CASCADE)
+    receiver = models.ForeignKey(User, related_name='received_messages', on_delete=models.CASCADE)
+    content = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_read = models.BooleanField(default=False)
+    
+    class Meta:
+        ordering = ['created_at']
+        
+    def __str__(self):
+        return f"From {self.sender} to {self.receiver}: {self.content[:20]}"
     
 class Post(models.Model):
     autor = models.ForeignKey(User, on_delete=models.CASCADE, related_name='posts')
