@@ -110,3 +110,12 @@ button, .btn {
 .profile-card .btn, .container.profile-user .btn {
     margin: 5px;
 }
+
+.comment-username {
+    color: var(--text-color);
+    text-decoration: none;
+}
+.comment-username:hover {
+    color: var(--accent);
+    text-decoration: underline;
+}
