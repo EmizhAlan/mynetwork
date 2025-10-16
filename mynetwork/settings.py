@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-u@ooxj50zw1d@!(t1sj8u_hfxsrze50*+2d@7v**c#i#g0^*hb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['<*>', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['mynetwork-imuw.onrender.com', 'localhost', '127.0.0.1']
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
