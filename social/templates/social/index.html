@@ -54,9 +54,9 @@
 
         <div class="card-footer d-flex justify-content-between align-items-center">
             
-            <a href="{% url 'post_detail' post.id %}" class="btn btn-link btn-sm">
-                💬 {{ post.comments.count }} комментариев
-            </a>
+            <button class="btn btn-outline-secondary btn-sm comment-btn" data-post-id="{{ post.id }}" onclick="window.location.href='{% url 'post_detail' post.id %}'">
+                💬 {{ post.comments.count }} комментариев  
+            </button>
         </div>
 
     </div>

@@ -41,5 +41,8 @@
 </form>
 {% endif %}
 
-<a href="{% url 'index' %}" class="btn btn-link mt-3">← Назад к ленте</a>
+<button class="btn btn-primary btn-sm" data-post-id="{{ post.id }}" onclick="window.location.href='{% url 'index' %}'">
+    ← Назад к ленте 
+</button>
+
 {% endblock %}
