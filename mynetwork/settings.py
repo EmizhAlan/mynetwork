@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-u@ooxj50zw1d@!(t1sj8u_hfxsrze50*+2d@7v**c#i#g0^*hb
 DEBUG = False
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+STATICFILES_DIRS = [BASE_DIR / "static"]
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
@@ -138,6 +138,6 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+MEDIA_ROOT = BASE_DIR / 'media'
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
