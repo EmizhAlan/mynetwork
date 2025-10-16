@@ -11,7 +11,7 @@ class User(AbstractUser):
         upload_to="avatars/",
         blank=True,
         null=True,
-        default="avatars/test.png",  # обязательно в media/
+        default="avatars/default.png",  # обязательно в media/
         verbose_name="Аватар"
     )
 
