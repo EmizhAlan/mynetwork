@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     # сюда добавь свои приложения, например:
     # 'network', 'users', и т.п.
+    'social',  # <-- вот это обязательно!
 ]
 
 # --- Middleware ---
